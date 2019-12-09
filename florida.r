@@ -138,10 +138,6 @@ models[["factors2"]] <- lm(
   formula = `2013-17 average murders per 100K` ~ `Percent of households headed by husbandless mothers` + `Percent of homes rented`,
   data = allData
 )
-models[["factors3"]] <- lm(
-  formula = `2013-17 average murders per 100K` ~ `Percent of households headed by husbandless mothers` + `Percent of homes owner-occupied`,
-  data = allData
-)
 models[["index"]] <- lm(
   formula = `Average index crime rate, 2013-17` ~ `Percent of homes rented`,
   data = allData
@@ -167,44 +163,9 @@ scatter.smooth(
   y = allData$`Average index crime rate, 2013-17`
 )
 
-
-allData$BlackCategory <- ifelse(
-  test = allData$`Percent black` < 10,
-  yes = "Less than 10% black",
-  no = ifelse(
-    test = allData$`Percent black` < 25,
-    yes = "10-24",
-    no = ifelse(
-      test = allData$`Percent black` < 50,
-      yes = "25-49",
-      no = "50+"
-    )
-  )
-)
-
-allData$WhiteCategory <- ifelse(
-  test = allData$`Percent non-Hispanic white` < 10,
-  yes = "Less than 10% white",
-  no = ifelse(
-    test = allData$`Percent non-Hispanic white` < 25,
-    yes = "10-24",
-    no = ifelse(
-      test = allData$`Percent non-Hispanic white` < 50,
-      yes = "25-49",
-      no = "50+"
-    )
-  )
-)
-
 write.csv(
   x = allData,
   file = "output/2013-17 FL crime data and demographics by county.csv",
   na = '',
   row.names = F
-)
-
-write.csv(
-  x = corrs,
-  file = "output/2013-17 FL crime data and demographics R2.csv",
-  na = ''
 )
